@@ -29,7 +29,11 @@ export default function DashboardPage() {
         <div>
           <h1>How Next.js Handles /dashboard</h1>
           <p>
-            This page breaks down how the App Router resolves a request to
+            This page breaks down how the{" "}
+            <a href="https://nextjs.org/docs/app" target="_blank" rel="noreferrer">
+              App Router
+            </a>{" "}
+            resolves a request to
             <strong> {dashboardNode.route ?? "/dashboard"}</strong> and renders
             <strong> {dashboardNode.filePath ?? "app/dashboard/page.tsx"}</strong>.
             Select a step to see where files participate in the request lifecycle.
@@ -40,7 +44,9 @@ export default function DashboardPage() {
           <div className="badges">
             <span className="badge">Route: {dashboardNode.route ?? "/dashboard"}</span>
             <span className="badge">File: {dashboardNode.filePath ?? "app/dashboard/page.tsx"}</span>
-            <span className="badge">Data flow: {dashboardNode.dataFlow ?? "server"}</span>
+            <span className="badge">
+              Data flow: {dashboardNode.dataFlow ?? "mixed (server + client)"}
+            </span>
           </div>
         </div>
       </section>
@@ -74,7 +80,7 @@ export default function DashboardPage() {
               <div>
                 <span className="mapping-label">Data boundary</span>
                 <span className="mapping-value">
-                  {dashboardNode.dataFlow ?? "Server component by default"}
+                  {dashboardNode.dataFlow ?? "Client boundary at page.tsx"}
                 </span>
               </div>
               <div>
@@ -217,7 +223,7 @@ export default function DashboardPage() {
           </div>
 
           <div className="detail-card">
-            <h3>Server-first data flow</h3>
+            <h3>Server + client data flow</h3>
             <svg viewBox="0 0 560 180" className="flow-chart" role="img" aria-label="Server data flow">
               <rect x="16" y="28" width="140" height="44" rx="12" />
               <text x="86" y="50">Request</text>
@@ -238,8 +244,24 @@ export default function DashboardPage() {
               <path d="M360 134 H392" />
             </svg>
             <p className="flow-hint">
-              The dashboard page is a server component, so rendering and data
-              fetching happen on the server before HTML streams to the client.
+              This page is a{" "}
+              <a
+                href="https://nextjs.org/docs/app/api-reference/directives/use-client"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Client Component
+              </a>
+              , so it hydrates in the browser after the server streams HTML. The
+              request still routes through layouts and can include{" "}
+              <a
+                href="https://nextjs.org/docs/app/building-your-application/data-fetching"
+                target="_blank"
+                rel="noreferrer"
+              >
+                server data fetching
+              </a>{" "}
+              before the page becomes interactive.
             </p>
           </div>
           <div className="detail-card">
@@ -260,7 +282,7 @@ export default function DashboardPage() {
      v
 [User Browser]
      |
-     | 5) Hydration (if client boundary)
+     | 5) Hydration (client boundary)
      v
 [Interactive UI]`}</code>
             </pre>

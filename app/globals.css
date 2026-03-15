@@ -43,6 +43,25 @@ p {
   color: var(--muted);
 }
 
+a {
+  color: var(--accent-strong);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 .hero {
   display: grid;
   gap: 24px;
@@ -202,6 +221,42 @@ p {
 
 .detail-panel h2 {
   margin-top: 0;
+}
+
+.selected-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.selected-link {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  border: 1px solid #f0d6c3;
+  background: #fff4e8;
+  color: var(--accent-strong);
+  text-decoration: none;
+}
+
+.selected-link:hover {
+  background: #ffe7d6;
+  color: var(--accent);
+}
+
+.selected-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.selected-link svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
 }
 
 .detail-card {

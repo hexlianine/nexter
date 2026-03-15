@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { LayoutDashboard } from "lucide-react";
 import { useMemo, useState } from "react";
 import { DEFAULT_EXPANDED, STRUCTURE, type DataFlowKind, type Node } from "./data";
 
@@ -113,9 +115,20 @@ export default function Page() {
         <div>
           <h1>Learn Next.js With a Living Project Tree</h1>
           <p>
-            Explore a hands-on project structure inspired by the App Router. Click
-            any folder or file to see why it exists, then expand the tree to map
-            how routes, layouts, and assets fit together.
+            Explore a hands-on project structure inspired by the{" "}
+            <a href="https://nextjs.org/docs/app" target="_blank" rel="noreferrer">
+              App Router
+            </a>
+            . Click any folder or file to see why it exists, then expand the tree to
+            map how{" "}
+            <a
+              href="https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts"
+              target="_blank"
+              rel="noreferrer"
+            >
+              routes and layouts
+            </a>{" "}
+            fit together.
           </p>
         </div>
         <div className="hero-card">
@@ -145,7 +158,19 @@ export default function Page() {
         </div>
 
         <aside className="detail-panel">
-          <h2>Selected: {selected.name}</h2>
+          <h2 className="selected-title">
+            <span>Selected: {selected.name}</span>
+            {selected.route === "/dashboard" ? (
+              <Link
+                href="/dashboard"
+                className="selected-link"
+                aria-label="Open dashboard page"
+                title="Open /dashboard"
+              >
+                <LayoutDashboard aria-hidden="true" />
+              </Link>
+            ) : null}
+          </h2>
           <div className="detail-card">
             <h3>Why it exists</h3>
             <p>{selected.summary}</p>
