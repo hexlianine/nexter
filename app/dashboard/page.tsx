@@ -242,6 +242,29 @@ export default function DashboardPage() {
               fetching happen on the server before HTML streams to the client.
             </p>
           </div>
+          <div className="detail-card">
+            <h3>ASCII request flow</h3>
+            <pre className="code-block" aria-label="ASCII data flow diagram">
+              <code>{`[User Browser]
+     |
+     | 1) HTTP request (GET /dashboard)
+     v
+[Next.js Server]
+     |
+     | 2) Route match + layout + page render
+     | 3) (Optional) Server data fetch
+     v
+[HTML Response]
+     |
+     | 4) Stream/Send HTML to browser
+     v
+[User Browser]
+     |
+     | 5) Hydration (if client boundary)
+     v
+[Interactive UI]`}</code>
+            </pre>
+          </div>
         </aside>
       </section>
     </main>
