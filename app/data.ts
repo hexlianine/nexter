@@ -1,5 +1,21 @@
 export type DataFlowKind = "server" | "client-boundary";
 
+export type RequestStep = {
+  step: number;
+  label: string;
+  filePath?: string;
+  summary: string;
+  responseType?: "HTML" | "JSON" | "Stream" | "Other";
+  excerpt?: string;
+};
+
+export type RequestHandler = {
+  filePath: string;
+  summary: string;
+  responseType: string;
+  excerpt: string;
+};
+
 export type Node = {
   id: string;
   name: string;
@@ -11,6 +27,8 @@ export type Node = {
   route?: string;
   filePath?: string;
   dataFlow?: DataFlowKind;
+  requestSteps?: RequestStep[];
+  handler?: RequestHandler;
   children?: Node[];
 };
 
@@ -61,6 +79,35 @@ export const STRUCTURE: Node = {
           route: "/",
           filePath: "app/page.tsx",
           dataFlow: "client-boundary",
+          requestSteps: [
+            {
+              step: 1,
+              label: "Route match",
+              summary: "Match the incoming request path to the app root segment.",
+              responseType: "HTML",
+            },
+            {
+              step: 2,
+              label: "Root layout",
+              filePath: "app/layout.tsx",
+              summary: "Compose the global layout shell around the route segment.",
+              responseType: "HTML",
+            },
+            {
+              step: 3,
+              label: "Page render",
+              filePath: "app/page.tsx",
+              summary: "Render the route entry and assemble the HTML response.",
+              responseType: "HTML",
+              excerpt: "<main>...<section className=\"panel-grid\">",
+            },
+          ],
+          handler: {
+            filePath: "app/page.tsx",
+            summary: "Server renders the page component and streams HTML to the client.",
+            responseType: "HTML",
+            excerpt: "export default function Page() {",
+          },
         },
         {
           id: "route-groups",
@@ -99,7 +146,7 @@ export const STRUCTURE: Node = {
           summary: "A protected area for authenticated lessons.",
           notes: ["Add nested layouts and loading UI here."],
           tags: ["route segment"],
-          status: "concept",
+          status: "present",
           children: [
             {
               id: "dashboard-loading",
@@ -108,7 +155,8 @@ export const STRUCTURE: Node = {
               summary: "Loading UI for this segment.",
               notes: ["Great for skeletons or spinners."],
               tags: ["special file"],
-              status: "concept",
+              status: "present",
+              filePath: "app/dashboard/loading.tsx",
             },
             {
               id: "dashboard-page",
@@ -117,7 +165,47 @@ export const STRUCTURE: Node = {
               summary: "Dashboard landing page.",
               notes: ["Show progress, streaks, and goals."],
               tags: ["special file"],
-              status: "concept",
+              status: "present",
+              route: "/dashboard",
+              filePath: "app/dashboard/page.tsx",
+              dataFlow: "server",
+              requestSteps: [
+                {
+                  step: 1,
+                  label: "Route match",
+                  summary: "Match the incoming request to the /dashboard segment.",
+                  responseType: "HTML",
+                },
+                {
+                  step: 2,
+                  label: "Root layout",
+                  filePath: "app/layout.tsx",
+                  summary: "Apply the global layout shell to the dashboard route.",
+                  responseType: "HTML",
+                },
+                {
+                  step: 3,
+                  label: "Loading UI",
+                  filePath: "app/dashboard/loading.tsx",
+                  summary: "Show a loading state while the page prepares data.",
+                  responseType: "HTML",
+                  excerpt: "export default function Loading() {",
+                },
+                {
+                  step: 4,
+                  label: "Page render",
+                  filePath: "app/dashboard/page.tsx",
+                  summary: "Render the dashboard page and return HTML.",
+                  responseType: "HTML",
+                  excerpt: "export default function DashboardPage() {",
+                },
+              ],
+              handler: {
+                filePath: "app/dashboard/page.tsx",
+                summary: "Renders the dashboard UI and streams HTML to the client.",
+                responseType: "HTML",
+                excerpt: "export default function DashboardPage() {",
+              },
             },
           ],
         },
@@ -128,7 +216,7 @@ export const STRUCTURE: Node = {
           summary: "Route handlers live here when using App Router APIs.",
           notes: ["Store handlers by feature area."],
           tags: ["route handlers"],
-          status: "concept",
+          status: "present",
           children: [
             {
               id: "api-progress",
@@ -137,7 +225,38 @@ export const STRUCTURE: Node = {
               summary: "Persist learning progress via an API route.",
               notes: ["Route handlers replace traditional API routes."],
               tags: ["route handler"],
-              status: "concept",
+              status: "present",
+              route: "/api/progress",
+              filePath: "app/api/progress/route.ts",
+              dataFlow: "server",
+              requestSteps: [
+                {
+                  step: 1,
+                  label: "Route match",
+                  summary: "Match the request to the API route handler.",
+                  responseType: "JSON",
+                },
+                {
+                  step: 2,
+                  label: "Handler execution",
+                  filePath: "app/api/progress/route.ts",
+                  summary: "Run the route handler to read or update progress data.",
+                  responseType: "JSON",
+                  excerpt: "export async function POST() {",
+                },
+                {
+                  step: 3,
+                  label: "Response",
+                  summary: "Return JSON payload to the client.",
+                  responseType: "JSON",
+                },
+              ],
+              handler: {
+                filePath: "app/api/progress/route.ts",
+                summary: "Handles POST/GET for progress updates and returns JSON.",
+                responseType: "JSON",
+                excerpt: "return Response.json({ ok: true });",
+              },
             },
           ],
         },

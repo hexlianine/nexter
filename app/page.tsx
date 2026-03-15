@@ -198,6 +198,64 @@ export default function Page() {
             </div>
           </div>
           <div className="detail-card">
+            <h3>Request steps</h3>
+            {selected.requestSteps && selected.requestSteps.length > 0 ? (
+              <ol className="steps">
+                {selected.requestSteps.map((step) => (
+                  <li key={`${selected.id}-step-${step.step}`} className="step-item">
+                    <span className="step-number">{step.step}</span>
+                    <div className="step-body">
+                      <div className="step-header">
+                        <span className="step-label">{step.label}</span>
+                        {step.responseType ? (
+                          <span className="step-response">{step.responseType}</span>
+                        ) : null}
+                      </div>
+                      {step.filePath ? (
+                        <div className="step-file">{step.filePath}</div>
+                      ) : null}
+                      <p className="step-summary">{step.summary}</p>
+                      {step.excerpt ? (
+                        <pre className="step-excerpt">
+                          <code>{step.excerpt}</code>
+                        </pre>
+                      ) : null}
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            ) : (
+              <p className="detail-empty">Not a route entry.</p>
+            )}
+          </div>
+          <div className="detail-card">
+            <h3>Handler + response</h3>
+            {selected.handler ? (
+              <div className="handler-grid">
+                <div>
+                  <span className="mapping-label">Handler file</span>
+                  <span className="mapping-value">{selected.handler.filePath}</span>
+                </div>
+                <div>
+                  <span className="mapping-label">Response type</span>
+                  <span className="mapping-value">{selected.handler.responseType}</span>
+                </div>
+                <div className="handler-summary">
+                  <span className="mapping-label">Summary</span>
+                  <p>{selected.handler.summary}</p>
+                </div>
+                <div className="handler-excerpt">
+                  <span className="mapping-label">Excerpt</span>
+                  <pre className="code-block">
+                    <code>{selected.handler.excerpt}</code>
+                  </pre>
+                </div>
+              </div>
+            ) : (
+              <p className="detail-empty">Not a route entry.</p>
+            )}
+          </div>
+          <div className="detail-card">
             <h3>{FLOW_LABELS[selectedFlow]}</h3>
             {selectedFlow === "server" ? (
               <svg viewBox="0 0 560 180" className="flow-chart" role="img" aria-label="Server data flow">
