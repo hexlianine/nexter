@@ -173,6 +173,27 @@ p {
   color: var(--muted);
 }
 
+.tree-status {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+
+.tree-status.present {
+  background: #e7f4ea;
+  color: #2f6b3c;
+  border-color: #bfe0c7;
+}
+
+.tree-status.concept {
+  background: #fff5e8;
+  color: #a0622c;
+  border-color: #f2d2b6;
+}
+
 .tree-children {
   margin-left: 22px;
   border-left: 1px dashed var(--tree-border);
@@ -194,6 +215,64 @@ p {
 .detail-card h3 {
   margin: 0 0 8px;
   font-size: 1.05rem;
+}
+
+.mapping-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.mapping-label {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.mapping-value {
+  font-family: "Source Code Pro", "Courier New", monospace;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.flow-chart {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  background: #fffdf8;
+  border: 1px solid #f0dcc9;
+  padding: 12px;
+}
+
+.flow-chart rect {
+  fill: #fff4e8;
+  stroke: #e8cdb5;
+  stroke-width: 1.5;
+}
+
+.flow-chart text {
+  font-size: 12.5px;
+  fill: #6a3d1f;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  font-family: "Source Code Pro", "Courier New", monospace;
+  letter-spacing: 0.01em;
+}
+
+.flow-chart path {
+  stroke: #b2441e;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.flow-hint {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 12px;
 }
 
 .tag-list {

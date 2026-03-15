@@ -1,228 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-
-const STRUCTURE = {
-  id: "root",
-  name: "next-learning/",
-  kind: "root",
-  summary: "A practical learning sandbox that mirrors common Next.js conventions.",
-  notes: [
-    "Start with the App Router in the app/ directory and grow into route groups and nested layouts.",
-  ],
-  tags: ["app-router", "learning"],
-  children: [
-    {
-      id: "app",
-      name: "app/",
-      kind: "folder",
-      summary:
-        "App Router directory. Each folder is a route segment with its own layout, page, and loading states.",
-      notes: [
-        "Keep route groups in parentheses to organize without affecting URLs.",
-        "Private folders start with an underscore to opt out of routing.",
-      ],
-      tags: ["route segments", "layouts", "loading"],
-      children: [
-        {
-          id: "app-layout",
-          name: "layout.tsx",
-          kind: "file",
-          summary: "Root layout shared across all routes.",
-          notes: ["Defines the HTML shell and global styling hooks."],
-          tags: ["special file"],
-        },
-        {
-          id: "app-page",
-          name: "page.tsx",
-          kind: "file",
-          summary: "The default route entry for a segment.",
-          notes: ["Each segment can have its own page file."],
-          tags: ["special file"],
-        },
-        {
-          id: "route-groups",
-          name: "(learning)/",
-          kind: "folder",
-          summary:
-            "Route group for curriculum sections that should not appear in the URL.",
-          notes: ["Helps organize without changing paths."],
-          tags: ["route group"],
-          children: [
-            {
-              id: "learning-layout",
-              name: "layout.tsx",
-              kind: "file",
-              summary: "Layout for the learning section only.",
-              notes: ["Useful for a unique sidebar or navigation."],
-              tags: ["special file"],
-            },
-            {
-              id: "learning-page",
-              name: "page.tsx",
-              kind: "file",
-              summary: "Overview page for the learning track.",
-              notes: ["Introduce goals and a checklist."],
-              tags: ["special file"],
-            },
-          ],
-        },
-        {
-          id: "dashboard",
-          name: "dashboard/",
-          kind: "folder",
-          summary: "A protected area for authenticated lessons.",
-          notes: ["Add nested layouts and loading UI here."],
-          tags: ["route segment"],
-          children: [
-            {
-              id: "dashboard-loading",
-              name: "loading.tsx",
-              kind: "file",
-              summary: "Loading UI for this segment.",
-              notes: ["Great for skeletons or spinners."],
-              tags: ["special file"],
-            },
-            {
-              id: "dashboard-page",
-              name: "page.tsx",
-              kind: "file",
-              summary: "Dashboard landing page.",
-              notes: ["Show progress, streaks, and goals."],
-              tags: ["special file"],
-            },
-          ],
-        },
-        {
-          id: "api",
-          name: "api/",
-          kind: "folder",
-          summary: "Route handlers live here when using App Router APIs.",
-          notes: ["Store handlers by feature area."],
-          tags: ["route handlers"],
-          children: [
-            {
-              id: "api-progress",
-              name: "progress/route.ts",
-              kind: "file",
-              summary: "Persist learning progress via an API route.",
-              notes: ["Route handlers replace traditional API routes."],
-              tags: ["route handler"],
-            },
-          ],
-        },
-      ],
-    },
-    {
-      id: "components",
-      name: "components/",
-      kind: "folder",
-      summary: "Reusable UI building blocks colocated outside routes.",
-      notes: ["Great for buttons, cards, and layout primitives."],
-      tags: ["ui"],
-      children: [
-        {
-          id: "components-course-card",
-          name: "course-card.tsx",
-          kind: "file",
-          summary: "Card UI for each learning module.",
-          notes: ["Keep it focused and composable."],
-          tags: ["component"],
-        },
-      ],
-    },
-    {
-      id: "lib",
-      name: "lib/",
-      kind: "folder",
-      summary: "Business logic, helpers, and server-only modules.",
-      notes: ["Store data fetching and auth utilities here."],
-      tags: ["helpers"],
-      children: [
-        {
-          id: "lib-data",
-          name: "learning-data.ts",
-          kind: "file",
-          summary: "Curated lesson metadata and difficulty levels.",
-          notes: ["Use strongly typed objects."],
-          tags: ["data"],
-        },
-      ],
-    },
-    {
-      id: "styles",
-      name: "styles/",
-      kind: "folder",
-      summary: "Design tokens, themes, and global styles.",
-      notes: ["Use this if you prefer a central styles folder."],
-      tags: ["styling"],
-      children: [
-        {
-          id: "styles-tokens",
-          name: "tokens.css",
-          kind: "file",
-          summary: "Shared color and spacing variables.",
-          notes: ["Import into globals or modules."],
-          tags: ["css"],
-        },
-      ],
-    },
-    {
-      id: "public",
-      name: "public/",
-      kind: "folder",
-      summary: "Static assets like images, icons, and fonts.",
-      notes: ["Served from the site root."],
-      tags: ["static assets"],
-      children: [
-        {
-          id: "public-hero",
-          name: "learning-hero.png",
-          kind: "file",
-          summary: "Hero illustration for the landing page.",
-          notes: ["Place static assets here."],
-          tags: ["asset"],
-        },
-      ],
-    },
-    {
-      id: "src",
-      name: "src/",
-      kind: "folder",
-      summary:
-        "Optional wrapper to keep source code separate from config and tooling.",
-      notes: ["You can move app/, components/, and lib/ under src/."],
-      tags: ["optional"],
-      children: [],
-    },
-    {
-      id: "config",
-      name: "next.config.js",
-      kind: "file",
-      summary: "Framework configuration for Next.js.",
-      notes: ["Add rewrites, images, and experimental flags."],
-      tags: ["config"],
-    },
-    {
-      id: "package-json",
-      name: "package.json",
-      kind: "file",
-      summary: "Project scripts and dependency manifest.",
-      notes: ["Use scripts like dev, build, and lint."],
-      tags: ["tooling"],
-    },
-  ],
-} as const;
-
-type Node = {
-  id: string;
-  name: string;
-  kind: string;
-  summary: string;
-  notes: string[];
-  tags: string[];
-  children?: Node[];
-};
+import { DEFAULT_EXPANDED, STRUCTURE, type DataFlowKind, type Node } from "./data";
 
 const FLATTEN = (node: Node): Node[] => {
   const children = node.children ?? [];
@@ -250,10 +29,15 @@ const filterTree = (node: Node, query: string): Node | null => {
   return null;
 };
 
+const FLOW_LABELS: Record<DataFlowKind, string> = {
+  server: "Server-first data flow",
+  "client-boundary": "Client boundary data flow",
+};
+
 export default function Page() {
   const [query, setQuery] = useState("");
   const [expanded, setExpanded] = useState<Set<string>>(
-    new Set(["root", "app", "route-groups", "dashboard"])
+    new Set(DEFAULT_EXPANDED)
   );
   const [selectedId, setSelectedId] = useState("app");
 
@@ -263,8 +47,10 @@ export default function Page() {
   }, [query]);
 
   const allNodes = useMemo(() => FLATTEN(STRUCTURE as Node), []);
-  const selected = allNodes.find((node) => node.id === selectedId) ??
-    (STRUCTURE as Node);
+  const selected =
+    allNodes.find((node) => node.id === selectedId) ?? (STRUCTURE as Node);
+  const selectedFlow: DataFlowKind =
+    selected.dataFlow ?? "server";
 
   const toggleExpanded = (id: string) => {
     setExpanded((prev) => {
@@ -309,6 +95,9 @@ export default function Page() {
           >
             {node.name}
           </button>
+          {node.status ? (
+            <span className={`tree-status ${node.status}`}>{node.status}</span>
+          ) : null}
           <span className="tree-kind">{node.kind}</span>
         </div>
         {hasChildren && isExpanded ? (
@@ -378,6 +167,86 @@ export default function Page() {
                 </span>
               ))}
             </div>
+          </div>
+          <div className="detail-card">
+            <h3>Request path + file mapping</h3>
+            <div className="mapping-grid">
+              <div>
+                <span className="mapping-label">Route</span>
+                <span className="mapping-value">
+                  {selected.route ?? "Not a route entry"}
+                </span>
+              </div>
+              <div>
+                <span className="mapping-label">File</span>
+                <span className="mapping-value">
+                  {selected.filePath ?? "Not a file-backed node"}
+                </span>
+              </div>
+              <div>
+                <span className="mapping-label">Data boundary</span>
+                <span className="mapping-value">
+                  {selected.dataFlow ?? "Server component by default"}
+                </span>
+              </div>
+              <div>
+                <span className="mapping-label">Status</span>
+                <span className="mapping-value">
+                  {selected.status ?? "concept"}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="detail-card">
+            <h3>{FLOW_LABELS[selectedFlow]}</h3>
+            {selectedFlow === "server" ? (
+              <svg viewBox="0 0 560 180" className="flow-chart" role="img" aria-label="Server data flow">
+                <rect x="16" y="28" width="140" height="44" rx="12" />
+                <text x="86" y="50">Request</text>
+                <rect x="200" y="28" width="160" height="44" rx="12" />
+                <text x="280" y="50">Route Match</text>
+                <rect x="392" y="28" width="152" height="44" rx="12" />
+                <text x="468" y="50">Layout</text>
+                <rect x="16" y="112" width="140" height="44" rx="12" />
+                <text x="86" y="134">Page</text>
+                <rect x="200" y="112" width="160" height="44" rx="12" />
+                <text x="280" y="134">Server Fetch</text>
+                <rect x="392" y="112" width="152" height="44" rx="12" />
+                <text x="468" y="134">HTML</text>
+                <path d="M156 50 H200" />
+                <path d="M360 50 H392" />
+                <path d="M468 72 V112" />
+                <path d="M156 134 H200" />
+                <path d="M360 134 H392" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 560 200" className="flow-chart" role="img" aria-label="Client boundary data flow">
+                <rect x="16" y="28" width="140" height="44" rx="12" />
+                <text x="86" y="50">Request</text>
+                <rect x="200" y="28" width="160" height="44" rx="12" />
+                <text x="280" y="50">Route Match</text>
+                <rect x="392" y="28" width="152" height="44" rx="12" />
+                <text x="468" y="50">Layout</text>
+                <rect x="16" y="120" width="140" height="44" rx="12" />
+                <text x="86" y="142">Page</text>
+                <rect x="200" y="120" width="160" height="44" rx="12" />
+                <text x="280" y="142">Client Boundary</text>
+                <rect x="392" y="120" width="152" height="44" rx="12" />
+                <text x="468" y="142">Hydrate</text>
+                <rect x="200" y="168" width="160" height="28" rx="10" />
+                <text x="280" y="186">Client Fetch</text>
+                <path d="M156 50 H200" />
+                <path d="M360 50 H392" />
+                <path d="M468 72 V120" />
+                <path d="M156 142 H200" />
+                <path d="M360 142 H392" />
+                <path d="M280 164 V168" />
+              </svg>
+            )}
+            <p className="flow-hint">
+              This chart switches based on the selected node. For route files,
+              you can see where data is allowed to run.
+            </p>
           </div>
           <p>
             Tip: Use <kbd>Ctrl</kbd> + <kbd>F</kbd> to jump to a folder, then click
