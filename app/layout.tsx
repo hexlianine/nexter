@@ -1,4 +1,5 @@
 import "./globals.css";
+import ThemeProvider from "./ui/theme-provider";
 
 export const metadata = {
   title: "Next.js Learning Structure",
@@ -12,7 +13,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ThemeProvider defaultTheme="light">{children}</ThemeProvider>
+      </body>
     </html>
   );
 }

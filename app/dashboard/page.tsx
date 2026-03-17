@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { STRUCTURE, type Node, type RequestStep } from "../data";
+import ProgressWidget from "../ui/progress-widget";
 
 const findNodeById = (node: Node, id: string): Node | null => {
   if (node.id === id) return node;
@@ -38,6 +39,9 @@ export default function DashboardPage() {
             <strong> {dashboardNode.filePath ?? "app/dashboard/page.tsx"}</strong>.
             Select a step to see where files participate in the request lifecycle.
           </p>
+        </div>
+        <div className="hero-card">
+          <ProgressWidget />
         </div>
         <div className="hero-card">
           <strong>Quick facts</strong>

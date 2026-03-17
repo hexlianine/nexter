@@ -11,6 +11,8 @@ export default function LearningLayout({
         <h3>Learning track</h3>
         <nav className="learning-nav">
           <Link href="/learn">Overview</Link>
+          <Link href="/learn/components">Components</Link>
+          <Link href="/learn/data-fetching">Data Fetching</Link>
           <Link href="/">Project tree</Link>
           <Link href="/dashboard">Dashboard</Link>
         </nav>

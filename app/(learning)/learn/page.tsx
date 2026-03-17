@@ -1,19 +1,12 @@
 import Link from "next/link";
 import LikeButton from "../../ui/like-button";
+import ProgressChecklist from "../../ui/progress-checklist";
 
 const GOALS = [
   "Understand App Router routing and layouts",
   "Use route groups to organize without affecting URLs",
   "Know when to use Server vs Client Components",
   "Apply loading states and API routes",
-];
-
-const CHECKLIST = [
-  { done: true, label: "Explore the project tree" },
-  { done: true, label: "Visit /dashboard to see request steps" },
-  { done: true, label: "See route groups in action (you're in one now)" },
-  { done: false, label: "Add a Client Component (try the like button below)" },
-  { done: false, label: "Create an API route for progress" },
 ];
 
 export default function LearnPage() {
@@ -42,13 +35,30 @@ export default function LearnPage() {
 
       <section className="hero-card" style={{ marginBottom: 24 }}>
         <h3 style={{ marginTop: 0 }}>Checklist</h3>
-        <ul className="checklist">
-          {CHECKLIST.map((item) => (
-            <li key={item.label} className={item.done ? "done" : ""}>
-              <span className="check">{item.done ? "✓" : "○"}</span>
-              {item.label}
-            </li>
-          ))}
+        <p style={{ margin: "0 0 12px", fontSize: "0.9rem", color: "var(--muted)" }}>
+          Click items to toggle. Progress is saved via <code>/api/progress</code>.
+        </p>
+        <ProgressChecklist />
+      </section>
+
+      <section className="hero-card" style={{ marginBottom: 24 }}>
+        <h3 style={{ marginTop: 0 }}>Learning modules</h3>
+        <p style={{ marginBottom: 16 }}>
+          Dive deeper into specific topics:
+        </p>
+        <ul style={{ margin: 0, paddingLeft: 20 }}>
+          <li style={{ marginBottom: 8 }}>
+            <Link href="/learn/components">
+              <strong>Components</strong>
+            </Link>{" "}
+            — Server vs Client Components with live demos (counter, modal, cart, search)
+          </li>
+          <li>
+            <Link href="/learn/data-fetching">
+              <strong>Data fetching</strong>
+            </Link>{" "}
+            — When and how to fetch on the server vs client
+          </li>
         </ul>
       </section>
 

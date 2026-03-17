@@ -286,7 +286,7 @@ export const STRUCTURE: Node = {
             "Keep Client Components small to reduce JS bundle size.",
           ],
           tags: ["server components", "client components", "use client"],
-          status: "concept",
+          status: "present",
           children: [
             {
               id: "ui-like-button",
@@ -316,7 +316,8 @@ export const STRUCTURE: Node = {
                 "Once a file has 'use client', all its imports are part of the client bundle.",
               ],
               tags: ["client component", "hooks", "events"],
-              status: "concept",
+              status: "present",
+              filePath: "app/ui/counter.tsx",
               dataFlow: "client-boundary",
             },
             {
@@ -331,7 +332,8 @@ export const STRUCTURE: Node = {
                 "Server Components passed as children are rendered on the server first.",
               ],
               tags: ["client component", "composition", "children pattern"],
-              status: "concept",
+              status: "present",
+              filePath: "app/ui/modal.tsx",
               dataFlow: "client-boundary",
             },
             {
@@ -346,7 +348,8 @@ export const STRUCTURE: Node = {
                 "This reduces client-side JavaScript while preserving interactivity.",
               ],
               tags: ["server component", "data fetching", "composition"],
-              status: "concept",
+              status: "present",
+              filePath: "app/ui/cart.tsx",
               dataFlow: "server",
             },
             {
@@ -361,7 +364,8 @@ export const STRUCTURE: Node = {
                 "The rest of the layout remains server-rendered.",
               ],
               tags: ["client component", "bundle optimization", "isolation"],
-              status: "concept",
+              status: "present",
+              filePath: "app/ui/search.tsx",
               dataFlow: "client-boundary",
             },
           ],
@@ -379,7 +383,8 @@ export const STRUCTURE: Node = {
             "Render providers as deep as possible to optimize static Server Component rendering.",
           ],
           tags: ["context", "provider", "client component", "theme"],
-          status: "concept",
+          status: "present",
+          filePath: "app/ui/theme-provider.tsx",
           dataFlow: "client-boundary",
         },
       ],
