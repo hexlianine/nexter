@@ -396,7 +396,7 @@ export const STRUCTURE: Node = {
       summary: "Reusable UI building blocks colocated outside routes.",
       notes: ["Great for buttons, cards, and layout primitives."],
       tags: ["ui"],
-      status: "concept",
+      status: "present",
       children: [
         {
           id: "components-course-card",
@@ -405,7 +405,8 @@ export const STRUCTURE: Node = {
           summary: "Card UI for each learning module.",
           notes: ["Keep it focused and composable."],
           tags: ["component"],
-          status: "concept",
+          status: "present",
+          filePath: "components/course-card.tsx",
         },
       ],
     },
@@ -416,7 +417,7 @@ export const STRUCTURE: Node = {
       summary: "Business logic, helpers, and server-only modules.",
       notes: ["Store data fetching and auth utilities here."],
       tags: ["helpers"],
-      status: "concept",
+      status: "present",
       children: [
         {
           id: "lib-data",
@@ -425,7 +426,8 @@ export const STRUCTURE: Node = {
           summary: "Curated lesson metadata and difficulty levels.",
           notes: ["Use strongly typed objects."],
           tags: ["data"],
-          status: "concept",
+          status: "present",
+          filePath: "lib/learning-data.ts",
         },
       ],
     },
@@ -436,7 +438,7 @@ export const STRUCTURE: Node = {
       summary: "Design tokens, themes, and global styles.",
       notes: ["Use this if you prefer a central styles folder."],
       tags: ["styling"],
-      status: "concept",
+      status: "present",
       children: [
         {
           id: "styles-tokens",
@@ -445,7 +447,8 @@ export const STRUCTURE: Node = {
           summary: "Shared color and spacing variables.",
           notes: ["Import into globals or modules."],
           tags: ["css"],
-          status: "concept",
+          status: "present",
+          filePath: "styles/tokens.css",
         },
       ],
     },
@@ -456,16 +459,17 @@ export const STRUCTURE: Node = {
       summary: "Static assets like images, icons, and fonts.",
       notes: ["Served from the site root."],
       tags: ["static assets"],
-      status: "concept",
+      status: "present",
       children: [
         {
           id: "public-hero",
-          name: "learning-hero.png",
+          name: "learning-hero.svg",
           kind: "file",
           summary: "Hero illustration for the landing page.",
           notes: ["Place static assets here."],
           tags: ["asset"],
-          status: "concept",
+          status: "present",
+          filePath: "public/learning-hero.svg",
         },
       ],
     },

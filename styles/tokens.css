@@ -1,0 +1,32 @@
+/**
+ * Design tokens for the nexter learning app.
+ * Import this before globals.css or in layout.tsx to apply variables.
+ */
+
+:root {
+  color-scheme: light;
+  --bg: #f6f2ea;
+  --bg-strong: #efe7db;
+  --ink: #1f1a12;
+  --muted: #6a5c4b;
+  --accent: #d05a2e;
+  --accent-strong: #b2441e;
+  --card: #ffffff;
+  --card-border: #e3d7c7;
+  --tree-border: #d8c9b5;
+  --shadow: 0 18px 35px rgba(31, 26, 18, 0.12);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #1f1a12;
+  --bg-strong: #2d261c;
+  --ink: #f6f2ea;
+  --muted: #b8a99a;
+  --accent: #e87a4a;
+  --accent-strong: #f09d6b;
+  --card: #2d261c;
+  --card-border: #3d362a;
+  --tree-border: #4d4638;
+  --shadow: 0 18px 35px rgba(0, 0, 0, 0.3);
+}

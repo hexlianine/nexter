@@ -1,32 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Code+Pro:wght@400;600&display=swap");
-
-:root {
-  color-scheme: light;
-  --bg: #f6f2ea;
-  --bg-strong: #efe7db;
-  --ink: #1f1a12;
-  --muted: #6a5c4b;
-  --accent: #d05a2e;
-  --accent-strong: #b2441e;
-  --card: #ffffff;
-  --card-border: #e3d7c7;
-  --tree-border: #d8c9b5;
-  --shadow: 0 18px 35px rgba(31, 26, 18, 0.12);
-}
-
-[data-theme="dark"] {
-  color-scheme: dark;
-  --bg: #1f1a12;
-  --bg-strong: #2d261c;
-  --ink: #f6f2ea;
-  --muted: #b8a99a;
-  --accent: #e87a4a;
-  --accent-strong: #f09d6b;
-  --card: #2d261c;
-  --card-border: #3d362a;
-  --tree-border: #4d4638;
-  --shadow: 0 18px 35px rgba(0, 0, 0, 0.3);
-}
+@import "../styles/tokens.css";
 
 [data-theme="dark"] body {
   background: radial-gradient(circle at top right, #252018 0%, #1f1a12 45%, #1a1610 100%);
@@ -116,6 +89,80 @@ a:focus-visible {
 
 .badge-link:hover {
   background: #f6dac8;
+}
+
+.course-card-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.course-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  background: var(--bg-strong);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.course-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
+}
+
+.course-card-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--ink);
+}
+
+.course-card-summary {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.course-card-difficulty {
+  align-self: flex-start;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.course-card-difficulty--beginner {
+  background: rgba(34, 197, 94, 0.15);
+  color: #15803d;
+}
+
+[data-theme="dark"] .course-card-difficulty--beginner {
+  background: rgba(34, 197, 94, 0.25);
+  color: #4ade80;
+}
+
+.course-card-difficulty--intermediate {
+  background: rgba(234, 179, 8, 0.15);
+  color: #a16207;
+}
+
+[data-theme="dark"] .course-card-difficulty--intermediate {
+  background: rgba(234, 179, 8, 0.25);
+  color: #facc15;
+}
+
+.course-card-difficulty--advanced {
+  background: rgba(239, 68, 68, 0.15);
+  color: #b91c1c;
+}
+
+[data-theme="dark"] .course-card-difficulty--advanced {
+  background: rgba(239, 68, 68, 0.25);
+  color: #f87171;
 }
 
 .panel-grid {

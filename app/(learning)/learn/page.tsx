@@ -1,6 +1,8 @@
 import Link from "next/link";
 import LikeButton from "../../ui/like-button";
 import ProgressChecklist from "../../ui/progress-checklist";
+import CourseCard from "@/components/course-card";
+import { LESSONS } from "@/lib/learning-data";
 
 const GOALS = [
   "Understand App Router routing and layouts",
@@ -46,20 +48,11 @@ export default function LearnPage() {
         <p style={{ marginBottom: 16 }}>
           Dive deeper into specific topics:
         </p>
-        <ul style={{ margin: 0, paddingLeft: 20 }}>
-          <li style={{ marginBottom: 8 }}>
-            <Link href="/learn/components">
-              <strong>Components</strong>
-            </Link>{" "}
-            — Server vs Client Components with live demos (counter, modal, cart, search)
-          </li>
-          <li>
-            <Link href="/learn/data-fetching">
-              <strong>Data fetching</strong>
-            </Link>{" "}
-            — When and how to fetch on the server vs client
-          </li>
-        </ul>
+        <div className="course-card-grid">
+          {LESSONS.map((lesson) => (
+            <CourseCard key={lesson.id} module={lesson} />
+          ))}
+        </div>
       </section>
 
       <section className="hero-card">
