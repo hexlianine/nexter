@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Cart from "../../../ui/cart";
+import TopicSearch from "../../../ui/topic-search";
 
 export default function DataFetchingPage() {
   return (
@@ -24,13 +25,25 @@ export default function DataFetchingPage() {
       </section>
 
       <section className="hero-card" style={{ marginBottom: 24 }}>
-        <h3 style={{ marginTop: 0 }}>Server Component data fetch</h3>
-        <p>
-          The cart below is a Server Component. It fetches data during the
-          request, on the server. No client-side JavaScript is needed for the
-          initial render.
+        <h3 style={{ marginTop: 0 }}>Server vs client fetch</h3>
+        <p style={{ marginBottom: 20 }}>
+          Compare how data arrives in each case. Server data is ready on load;
+          client data loads when you interact.
         </p>
-        <Cart />
+        <div className="fetch-comparison">
+          <div className="fetch-comparison-card">
+            <span className="fetch-comparison-label fetch-comparison-label--server">
+              Server
+            </span>
+            <Cart />
+          </div>
+          <div className="fetch-comparison-card">
+            <span className="fetch-comparison-label fetch-comparison-label--client">
+              Client
+            </span>
+            <TopicSearch />
+          </div>
+        </div>
       </section>
 
       <section className="hero-card" style={{ marginBottom: 24 }}>
@@ -50,9 +63,10 @@ export default function DataFetchingPage() {
       <section className="hero-card">
         <h3 style={{ marginTop: 0 }}>Try it</h3>
         <p>
-          Visit the{" "}
-          <Link href="/learn/components">Components</Link> page to see Client
-          Components that fetch or react to user input.
+          Use the client search above (e.g. type &quot;server&quot; or
+          &quot;router&quot;), or visit{" "}
+          <Link href="/learn/components">Components</Link> for more Client
+          Components that react to user input.
         </p>
       </section>
 
