@@ -13,6 +13,9 @@ export default function LearningLayout({
           <Link href="/learn">Overview</Link>
           <Link href="/learn/components">Components</Link>
           <Link href="/learn/data-fetching">Data Fetching</Link>
+          <Link href="/learn/routing-layouts">Routing & layouts</Link>
+          <Link href="/learn/api-routes">API routes</Link>
+          <Link href="/learn/loading-states">Loading states</Link>
           <Link href="/">Project tree</Link>
           <Link href="/dashboard">Dashboard</Link>
         </nav>
