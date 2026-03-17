@@ -92,6 +92,14 @@ a:focus-visible {
   font-weight: 600;
 }
 
+.badge-link {
+  text-decoration: none;
+}
+
+.badge-link:hover {
+  background: #f6dac8;
+}
+
 .panel-grid {
   display: grid;
   gap: 24px;
@@ -459,6 +467,240 @@ a:focus-visible {
   padding: 4px 10px;
   border-radius: 999px;
   font-size: 0.8rem;
+}
+
+/* Learning layout (route group) */
+.learning-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 32px 64px;
+}
+
+@media (max-width: 700px) {
+  .learning-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.learning-sidebar {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  padding: 20px;
+  height: fit-content;
+  box-shadow: var(--shadow);
+}
+
+.learning-sidebar h3 {
+  margin: 0 0 16px;
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.learning-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.learning-nav a {
+  padding: 8px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+.learning-nav a:hover {
+  background: #fff4e8;
+}
+
+.learning-main main {
+  max-width: none;
+  padding: 0;
+}
+
+/* Checklist */
+.checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.checklist li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.checklist .check {
+  width: 24px;
+  font-size: 1.1rem;
+  color: var(--accent-strong);
+}
+
+.checklist li.done .check {
+  color: #2f6b3c;
+}
+
+/* Like button (Client Component demo) */
+.like-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 1px solid var(--tree-border);
+  border-radius: 12px;
+  background: var(--bg-strong);
+  color: var(--ink);
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.like-button:hover {
+  background: #f6dac8;
+  border-color: #e8c9b0;
+}
+
+.like-button[aria-pressed="true"] {
+  background: #fde7d8;
+  border-color: #f3c7ae;
+}
+
+.like-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.like-count {
+  font-family: "Source Code Pro", monospace;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* Learning layout */
+.learning-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 32px;
+  min-height: 100vh;
+}
+
+.learning-sidebar {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 20px;
+  height: fit-content;
+  position: sticky;
+  top: 24px;
+  box-shadow: var(--shadow);
+}
+
+.learning-sidebar h3 {
+  margin: 0 0 16px;
+  font-size: 1rem;
+}
+
+.learning-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.learning-nav a {
+  padding: 8px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.learning-nav a:hover {
+  background: var(--bg-strong);
+}
+
+.learning-main {
+  min-width: 0;
+}
+
+@media (max-width: 720px) {
+  .learning-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .learning-sidebar {
+    position: static;
+  }
+}
+
+/* Like button (Client Component demo) */
+.like-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 1px solid var(--tree-border);
+  background: var(--bg-strong);
+  color: var(--ink);
+  border-radius: 12px;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.like-button:hover {
+  background: #f6dac8;
+  border-color: var(--accent);
+}
+
+.like-button[aria-pressed="true"] {
+  background: #fde7d8;
+  border-color: var(--accent);
+  color: var(--accent-strong);
+}
+
+.like-icon {
+  font-size: 1.2rem;
+}
+
+.like-count {
+  background: rgba(0, 0, 0, 0.06);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+}
+
+/* Checklist */
+.checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.checklist li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.checklist li:last-child {
+  border-bottom: none;
+}
+
+.checklist .check {
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+.checklist li.done .check {
+  color: #2f6b3c;
 }
 
 footer {

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LayoutDashboard } from "lucide-react";
+import { LayoutDashboard, BookOpen } from "lucide-react";
 import { useMemo, useState } from "react";
 import { DEFAULT_EXPANDED, STRUCTURE, type DataFlowKind, type Node } from "./data";
 
@@ -142,6 +142,9 @@ export default function Page() {
         <div className="hero-card">
           <strong>What this teaches:</strong>
           <div className="badges">
+            <Link href="/learn" className="badge badge-link">
+              Learning overview →
+            </Link>
             <span className="badge">App Router basics</span>
             <span className="badge">Route groups</span>
             <span className="badge">Special files</span>
@@ -177,6 +180,15 @@ export default function Page() {
                 title="Open /dashboard"
               >
                 <LayoutDashboard aria-hidden="true" />
+              </Link>
+            ) : selected.route === "/learn" ? (
+              <Link
+                href="/learn"
+                className="selected-link"
+                aria-label="Open learning overview"
+                title="Open /learn"
+              >
+                <BookOpen aria-hidden="true" />
               </Link>
             ) : null}
           </h2>
