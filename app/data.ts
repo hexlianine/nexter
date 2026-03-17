@@ -260,6 +260,112 @@ export const STRUCTURE: Node = {
             },
           ],
         },
+        {
+          id: "ui",
+          name: "ui/",
+          kind: "folder",
+          summary:
+            "Colocated UI components demonstrating Server and Client Component patterns.",
+          notes: [
+            "Use 'use client' directive at the top of files that need interactivity.",
+            "Keep Client Components small to reduce JS bundle size.",
+          ],
+          tags: ["server components", "client components", "use client"],
+          status: "concept",
+          children: [
+            {
+              id: "ui-like-button",
+              name: "like-button.tsx",
+              kind: "file",
+              summary:
+                "Client Component with useState for interactive like functionality.",
+              notes: [
+                "Add 'use client' at the top to mark this as a Client Component.",
+                "Use Client Components when you need state, event handlers, or browser APIs.",
+                "Props passed from Server Components must be serializable.",
+              ],
+              tags: ["client component", "use client", "interactivity"],
+              status: "concept",
+              dataFlow: "client-boundary",
+            },
+            {
+              id: "ui-counter",
+              name: "counter.tsx",
+              kind: "file",
+              summary:
+                "Interactive counter demonstrating useState and onClick handlers.",
+              notes: [
+                "Client Components can use React hooks like useState and useEffect.",
+                "Event handlers like onClick only work in Client Components.",
+                "Once a file has 'use client', all its imports are part of the client bundle.",
+              ],
+              tags: ["client component", "hooks", "events"],
+              status: "concept",
+              dataFlow: "client-boundary",
+            },
+            {
+              id: "ui-modal",
+              name: "modal.tsx",
+              kind: "file",
+              summary:
+                "Client Component wrapper that accepts Server Components as children.",
+              notes: [
+                "Use the children prop pattern to nest Server Components inside Client Components.",
+                "This lets you keep server-rendered content while adding client-side interactivity.",
+                "Server Components passed as children are rendered on the server first.",
+              ],
+              tags: ["client component", "composition", "children pattern"],
+              status: "concept",
+              dataFlow: "client-boundary",
+            },
+            {
+              id: "ui-cart",
+              name: "cart.tsx",
+              kind: "file",
+              summary:
+                "Server Component that fetches cart data and can be nested inside Client Components.",
+              notes: [
+                "Server Components can fetch data directly without exposing secrets.",
+                "Pass Server Components as children to Client Components for interleaving.",
+                "This reduces client-side JavaScript while preserving interactivity.",
+              ],
+              tags: ["server component", "data fetching", "composition"],
+              status: "concept",
+              dataFlow: "server",
+            },
+            {
+              id: "ui-search",
+              name: "search.tsx",
+              kind: "file",
+              summary:
+                "Client Component for search input with controlled state.",
+              notes: [
+                "Mark only the interactive search as 'use client' to keep the parent layout a Server Component.",
+                "This pattern reduces JS bundle size by isolating client code.",
+                "The rest of the layout remains server-rendered.",
+              ],
+              tags: ["client component", "bundle optimization", "isolation"],
+              status: "concept",
+              dataFlow: "client-boundary",
+            },
+          ],
+        },
+        {
+          id: "providers",
+          name: "theme-provider.tsx",
+          kind: "file",
+          summary:
+            "Client Component context provider for sharing global state like themes.",
+          notes: [
+            "React context is not supported in Server Components.",
+            "Create a Client Component provider that accepts children.",
+            "Import and wrap children in a Server Component like layout.tsx.",
+            "Render providers as deep as possible to optimize static Server Component rendering.",
+          ],
+          tags: ["context", "provider", "client component", "theme"],
+          status: "concept",
+          dataFlow: "client-boundary",
+        },
       ],
     },
     {
@@ -376,4 +482,4 @@ export const STRUCTURE: Node = {
   ],
 };
 
-export const DEFAULT_EXPANDED = ["root", "app", "route-groups", "dashboard"]; 
+export const DEFAULT_EXPANDED = ["root", "app", "route-groups", "dashboard", "ui"]; 

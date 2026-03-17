@@ -128,7 +128,15 @@ export default function Page() {
             >
               routes and layouts
             </a>{" "}
-            fit together.
+            fit together. Learn when to use{" "}
+            <a
+              href="https://nextjs.org/docs/app/getting-started/server-and-client-components"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Server and Client Components
+            </a>
+            .
           </p>
         </div>
         <div className="hero-card">
@@ -137,6 +145,7 @@ export default function Page() {
             <span className="badge">App Router basics</span>
             <span className="badge">Route groups</span>
             <span className="badge">Special files</span>
+            <span className="badge">Server & Client Components</span>
             <span className="badge">Static assets</span>
             <span className="badge">Organizing code</span>
           </div>
