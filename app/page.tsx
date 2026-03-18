@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { LayoutDashboard, BookOpen } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { DEFAULT_EXPANDED, STRUCTURE, type DataFlowKind, type Node } from "./data";
+import CodePreview from "./ui/code-preview";
 
 const FLATTEN = (node: Node): Node[] => {
   const children = node.children ?? [];
@@ -42,15 +43,49 @@ export default function Page() {
     new Set(DEFAULT_EXPANDED)
   );
   const [selectedId, setSelectedId] = useState("app");
+  const [fileContent, setFileContent] = useState<string | null>(null);
+  const [fileContentLoading, setFileContentLoading] = useState(false);
+  const [fileContentError, setFileContentError] = useState<string | null>(null);
+
+  const allNodes = useMemo(() => FLATTEN(STRUCTURE as Node), []);
+  const selected =
+    allNodes.find((node) => node.id === selectedId) ?? (STRUCTURE as Node);
+
+  const fetchFileContent = useCallback(async (filePath: string) => {
+    setFileContentLoading(true);
+    setFileContentError(null);
+    setFileContent(null);
+    try {
+      const res = await fetch(
+        `/api/file-content?path=${encodeURIComponent(filePath)}`
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        setFileContentError(data.error ?? "Failed to load file");
+        return;
+      }
+      setFileContent(data.content);
+    } catch {
+      setFileContentError("Failed to load file");
+    } finally {
+      setFileContentLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (selected.filePath) {
+      fetchFileContent(selected.filePath);
+    } else {
+      setFileContent(null);
+      setFileContentError(null);
+    }
+  }, [selected.filePath, fetchFileContent]);
 
   const filteredTree = useMemo(() => {
     if (!query) return STRUCTURE as Node;
     return filterTree(STRUCTURE as Node, query) ?? (STRUCTURE as Node);
   }, [query]);
 
-  const allNodes = useMemo(() => FLATTEN(STRUCTURE as Node), []);
-  const selected =
-    allNodes.find((node) => node.id === selectedId) ?? (STRUCTURE as Node);
   const selectedFlow: DataFlowKind =
     selected.dataFlow ?? "server";
 
@@ -204,6 +239,21 @@ export default function Page() {
               ))}
             </ul>
           </div>
+          {selected.filePath ? (
+            <div className="detail-card">
+              <h3>Source code</h3>
+              <p className="mapping-value" style={{ marginBottom: 8 }}>
+                {selected.filePath}
+              </p>
+              {fileContentLoading ? (
+                <p className="detail-empty">Loading...</p>
+              ) : fileContentError ? (
+                <p className="detail-empty">{fileContentError}</p>
+              ) : fileContent ? (
+                <CodePreview code={fileContent} filePath={selected.filePath} />
+              ) : null}
+            </div>
+          ) : null}
           <div className="detail-card">
             <h3>Tags</h3>
             <div className="tag-list">

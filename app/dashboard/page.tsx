@@ -133,11 +133,7 @@ export default function DashboardPage() {
                           setSelectedStep(step);
                         }
                       }}
-                      style={{
-                        cursor: "pointer",
-                        background: isActive ? "#fde7d8" : undefined,
-                        borderColor: isActive ? "#f3c7ae" : undefined,
-                      }}
+                      style={{ cursor: "pointer" }}
                       aria-pressed={isActive}
                     >
                       <span className="step-number">{step.step}</span>

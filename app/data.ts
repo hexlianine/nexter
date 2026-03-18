@@ -69,6 +69,16 @@ export const STRUCTURE: Node = {
           dataFlow: "server",
         },
         {
+          id: "app-error",
+          name: "error.tsx",
+          kind: "file",
+          summary: "Root error boundary for the app.",
+          notes: ["Catches errors in any segment and shows recovery UI."],
+          tags: ["special file"],
+          status: "present",
+          filePath: "app/error.tsx",
+        },
+        {
           id: "app-page",
           name: "page.tsx",
           kind: "file",
@@ -172,6 +182,16 @@ export const STRUCTURE: Node = {
               tags: ["special file"],
               status: "present",
               filePath: "app/dashboard/loading.tsx",
+            },
+            {
+              id: "dashboard-error",
+              name: "error.tsx",
+              kind: "file",
+              summary: "Error boundary for this segment.",
+              notes: ["Catches thrown errors and shows recovery UI."],
+              tags: ["special file"],
+              status: "present",
+              filePath: "app/dashboard/error.tsx",
             },
             {
               id: "dashboard-page",

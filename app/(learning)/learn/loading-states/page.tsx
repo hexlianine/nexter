@@ -46,9 +46,7 @@ export default function LoadingStatesPage() {
           <code>{`// app/dashboard/loading.tsx
 export default function Loading() {
   return (
-    <div style={{ padding: 24, borderRadius: 16, background: "#fff4e8" }}>
-      Loading dashboard...
-    </div>
+    <div className="loading-placeholder">Loading dashboard...</div>
   );
 }`}</code>
         </pre>
@@ -89,6 +87,37 @@ export default function Loading() {
           <li>
             <strong>Suspense:</strong> Granular fallbacks for individual
             components
+          </li>
+        </ul>
+      </section>
+
+      <section className="hero-card" style={{ marginBottom: 24 }}>
+        <h3 style={{ marginTop: 0 }}>error.tsx</h3>
+        <p>
+          The companion to <code>loading.tsx</code> is{" "}
+          <code>error.tsx</code>. It creates an{" "}
+          <a
+            href="https://nextjs.org/docs/app/building-your-application/routing/error-handling"
+            target="_blank"
+            rel="noreferrer"
+          >
+            error boundary
+          </a>{" "}
+          for the segment. When a page or child component throws, Next.js
+          catches it and shows your error UI instead of the whole app crashing.
+        </p>
+        <p>
+          The dashboard has <code>app/dashboard/error.tsx</code>, and there is
+          a root <code>app/error.tsx</code> for app-wide errors. Both offer a
+          &quot;Try again&quot; button (via <code>reset()</code>) so users can
+          recover without losing context.
+        </p>
+        <ul>
+          <li>
+            <strong>loading.tsx:</strong> Fallback while loading
+          </li>
+          <li>
+            <strong>error.tsx:</strong> Fallback when something throws
           </li>
         </ul>
       </section>

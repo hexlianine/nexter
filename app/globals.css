@@ -91,6 +91,10 @@ a:focus-visible {
   background: #f6dac8;
 }
 
+[data-theme="dark"] .badge-link:hover {
+  background: var(--bg-strong);
+}
+
 .course-card-grid {
   display: grid;
   gap: 16px;
@@ -372,6 +376,14 @@ a:focus-visible {
   font-size: 0.95rem;
 }
 
+.error-message {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-family: "Source Code Pro", "Courier New", monospace;
+  font-size: 0.9rem;
+  word-break: break-word;
+}
+
 .steps {
   list-style: none;
   padding: 0;
@@ -481,6 +493,21 @@ a:focus-visible {
   white-space: pre-wrap;
 }
 
+.code-preview {
+  max-height: 360px;
+  overflow: auto;
+  white-space: pre;
+  background: inherit !important;
+}
+
+/* Reset token-level backgrounds/borders from Prism so code reads as plain text */
+.code-preview .token {
+  background: none !important;
+  border: none !important;
+  padding: 0;
+  border-radius: 0;
+}
+
 .flow-chart {
   width: 100%;
   height: auto;
@@ -525,7 +552,7 @@ a:focus-visible {
   margin-top: 12px;
 }
 
-.tag {
+.tag-list .tag {
   background: #ffffff;
   border: 1px solid #f1d0bb;
   color: var(--accent-strong);
