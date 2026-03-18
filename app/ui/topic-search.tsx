@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 type Topic = {
@@ -14,13 +15,20 @@ export default function TopicSearch() {
   const [topics, setTopics] = useState<Topic[]>([]);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
+  const [needsAuth, setNeedsAuth] = useState(false);
 
   async function handleSearch(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     setSearched(true);
+    setNeedsAuth(false);
     try {
       const res = await fetch(`/api/demo-topics?q=${encodeURIComponent(query)}`);
+      if (res.status === 401) {
+        setNeedsAuth(true);
+        setTopics([]);
+        return;
+      }
       const data = await res.json();
       setTopics(data.topics ?? []);
     } catch {
@@ -45,7 +53,12 @@ export default function TopicSearch() {
           {loading ? "Loading…" : "Search"}
         </button>
       </form>
-      {searched && (
+      {needsAuth && (
+        <p className="topic-search-hint">
+          <Link href="/login">Sign in</Link> to search topics.
+        </p>
+      )}
+      {searched && !needsAuth && (
         <div className="topic-search-results">
           {loading ? (
             <p className="topic-search-hint">Fetching…</p>

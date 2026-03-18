@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AuthActions } from "../ui/auth-actions";
 
 export default function LearningLayout({
   children,
@@ -19,6 +20,9 @@ export default function LearningLayout({
           <Link href="/">Project tree</Link>
           <Link href="/dashboard">Dashboard</Link>
         </nav>
+        <div className="learning-auth">
+          <AuthActions />
+        </div>
       </aside>
       <div className="learning-main">{children}</div>
     </div>

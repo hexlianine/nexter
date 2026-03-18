@@ -61,7 +61,11 @@ export default function Page() {
       );
       const data = await res.json();
       if (!res.ok) {
-        setFileContentError(data.error ?? "Failed to load file");
+        if (res.status === 401) {
+          setFileContentError("sign-in-required");
+        } else {
+          setFileContentError(data.error ?? "Failed to load file");
+        }
         return;
       }
       setFileContent(data.content);
@@ -247,6 +251,10 @@ export default function Page() {
               </p>
               {fileContentLoading ? (
                 <p className="detail-empty">Loading...</p>
+              ) : fileContentError === "sign-in-required" ? (
+                <p className="detail-empty">
+                  <Link href="/login">Sign in</Link> to view file content.
+                </p>
               ) : fileContentError ? (
                 <p className="detail-empty">{fileContentError}</p>
               ) : fileContent ? (

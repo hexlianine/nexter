@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
 const CHECKLIST_ITEMS = [
@@ -13,11 +14,17 @@ const CHECKLIST_ITEMS = [
 export default function ProgressChecklist() {
   const [doneIds, setDoneIds] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
+  const [needsAuth, setNeedsAuth] = useState(false);
 
   const fetchProgress = useCallback(async () => {
     try {
       const res = await fetch("/api/progress");
       const data = await res.json();
+      if (res.status === 401) {
+        setNeedsAuth(true);
+        setDoneIds(new Set());
+        return;
+      }
       if (data.ok && data.progress?.checklistDone) {
         setDoneIds(new Set(data.progress.checklistDone));
       } else {
@@ -36,6 +43,7 @@ export default function ProgressChecklist() {
 
   const toggle = useCallback(
     async (id: string) => {
+      if (needsAuth) return;
       const next = new Set(doneIds);
       if (next.has(id)) {
         next.delete(id);
@@ -44,16 +52,17 @@ export default function ProgressChecklist() {
       }
       setDoneIds(next);
       try {
-        await fetch("/api/progress", {
+        const res = await fetch("/api/progress", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ checklistDone: Array.from(next) }),
         });
+        if (res.status === 401) setNeedsAuth(true);
       } catch {
         setDoneIds(doneIds);
       }
     },
-    [doneIds]
+    [doneIds, needsAuth]
   );
 
   if (loading) {
@@ -61,6 +70,14 @@ export default function ProgressChecklist() {
       <ul className="checklist">
         <li>Loading checklist…</li>
       </ul>
+    );
+  }
+
+  if (needsAuth) {
+    return (
+      <p className="detail-empty">
+        <Link href="/login">Sign in</Link> to track your progress.
+      </p>
     );
   }
 

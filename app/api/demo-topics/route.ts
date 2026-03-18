@@ -1,3 +1,5 @@
+import { auth } from "@/auth";
+
 // Demo API for client-side fetch example. Returns topics filtered by query.
 const TOPICS = [
   { id: "1", name: "Next.js Foundations", slug: "foundations", level: "beginner" },
@@ -9,6 +11,11 @@ const TOPICS = [
 ];
 
 export async function GET(request: Request) {
+  const session = await auth();
+  if (!session?.user) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const { searchParams } = new URL(request.url);
   const q = searchParams.get("q")?.toLowerCase().trim() ?? "";
 

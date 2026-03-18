@@ -1,10 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { readFile } from "fs/promises";
 import path from "path";
+import { auth } from "@/auth";
 
 const ALLOWED_EXT = [".ts", ".tsx", ".js", ".jsx", ".css", ".json", ".md"];
 
 export async function GET(request: NextRequest) {
+  const session = await auth();
+  if (!session?.user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const pathParam = request.nextUrl.searchParams.get("path");
   if (!pathParam || typeof pathParam !== "string") {
     return NextResponse.json(
