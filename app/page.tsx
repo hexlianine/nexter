@@ -250,7 +250,11 @@ export default function Page() {
               ) : fileContentError ? (
                 <p className="detail-empty">{fileContentError}</p>
               ) : fileContent ? (
-                <CodePreview code={fileContent} filePath={selected.filePath} />
+                <CodePreview
+                  code={fileContent}
+                  filePath={selected.filePath}
+                  requestSteps={selected.requestSteps}
+                />
               ) : null}
             </div>
           ) : null}

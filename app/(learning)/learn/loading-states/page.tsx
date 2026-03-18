@@ -123,11 +123,31 @@ export default function Loading() {
       </section>
 
       <section className="hero-card">
-        <h3 style={{ marginTop: 0 }}>Try it</h3>
+        <h3 style={{ marginTop: 0 }}>Try it: Break / Fix demos</h3>
         <p>
-          Go to <Link href="/dashboard">/dashboard</Link> and throttle your
-          network in DevTools (Slow 3G) to see the loading state more clearly.
+          Interactive demos let you observe App Router behavior firsthand. Each
+          action triggers the real loading.tsx, error.tsx, or streaming behavior.
         </p>
+        <ul style={{ marginBottom: 20 }}>
+          <li>
+            <strong>Trigger slow fetch</strong> — See loading.tsx for ~3 seconds
+          </li>
+          <li>
+            <strong>Throw an error</strong> — See error.tsx catch it
+          </li>
+          <li>
+            <strong>Recover with reset()</strong> — Click &quot;Try again&quot; on the error boundary
+          </li>
+          <li>
+            <strong>See streamed fallback</strong> — Watch Suspense stream a chunk in
+          </li>
+        </ul>
+        <div className="controls">
+          <Link href="/dashboard/demos" className="badge badge-link">
+            Run demos →
+          </Link>
+          <Link href="/dashboard">Dashboard</Link>
+        </div>
       </section>
 
       <footer>
