@@ -1,7 +1,6 @@
 import "../styles/tokens.css";
 import "./globals.css";
-import ThemeProvider from "./ui/theme-provider";
-import SessionProvider from "./ui/session-provider";
+import { Providers } from "./providers";
 
 export const metadata = {
   title: "Next.js Learning Structure",
@@ -15,10 +14,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <SessionProvider>
-          <ThemeProvider defaultTheme="light">{children}</ThemeProvider>
-        </SessionProvider>
+      <body suppressHydrationWarning>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
