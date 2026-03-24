@@ -10,7 +10,7 @@ type CodeSnippetProps = {
 
 export default function CodeSnippet({
   code,
-  language = "typescript",
+  language = "tsx",
 }: CodeSnippetProps) {
   const { theme } = useTheme();
   const prismTheme = theme === "dark" ? themes.nightOwl : themes.github;

@@ -21,78 +21,39 @@ type ChapterSection = {
 };
 
 const CHAPTER_CONTENT: Record<string, ChapterSection[]> = {
-  "type-safety-basics": [
+  "why-nextjs": [
     {
-      id: "why-types",
-      title: "Why type safety matters",
+      id: "why-nextjs-article",
+      title: "Why Next.js?",
       content: (
-        <p className="gb-page-desc">
-          Type safety turns guesswork into guarantees. Instead of hoping runtime
-          values match your expectations, you model them up front. That makes
-          refactors calmer, onboarding faster, and bugs easier to spot before
-          they ship.
-        </p>
+        <article className="gb-page-desc">
+          <p>
+            React is a fantastic library for building user interfaces, but when building complete web applications, you often encounter challenges like <strong>routing, data fetching, and performance optimization</strong>. Next.js is a React framework that solves these problems out of the box, providing a comprehensive toolkit to build modern web applications faster and more efficiently.
+          </p>
+          <br />
+          <p>
+            At its core, Next.js provides a structured <code>App Router</code> for seamless navigation, built-in features for Server Side Rendering (SSR), and Server Components to execute code securely back on the server before reaching the client. This means you ship less JavaScript, enjoy faster page loads, and have better SEO.
+          </p>
+          <br />
+          <p>
+            Whether you are building a static blog or a complex, full-stack application, Next.js scales with your needs seamlessly.
+          </p>
+        </article>
       ),
     },
     {
-      id: "shape-thinking",
-      title: "Think in shapes",
+      id: "mental-model",
+      title: "The Mental Model",
       content: (
         <div>
           <p className="gb-page-desc">
-            Types are about the shape of data. Start by describing the fields you
-            need, then let TypeScript infer the rest. When a value crosses a
-            boundary (API response, props, form input), lock it down with a type.
+            With Next.js, consider components to be server-first by default. This reduces client-side bundles and pushes logic to the infrastructure. When you need interactivity (like `onClick` or `useState`), you opt into client-side code using the <code>"use client"</code> directive.
           </p>
-          <CodeSnippet code={`type Lesson = {
-  id: string;
-  title: string;
-  difficulty: "beginner" | "intermediate" | "advanced";
-};
-
-const lessons: Lesson[] = [
-  { id: "intro", title: "Intro to TS", difficulty: "beginner" },
-];`} />
-        </div>
-      ),
-    },
-    {
-      id: "boundaries",
-      title: "Protect the boundaries",
-      content: (
-        <div>
-          <p className="gb-page-desc">
-            The most valuable types live at boundaries: API handlers, data fetch
-            functions, and component props. That way, once data is inside your
-            system, the rest of the code can assume it is correct.
-          </p>
-          <CodeSnippet code={`type ProgressResponse = {
-  completed: number;
-  total: number;
-};
-
-export async function GET() {
-  const data: ProgressResponse = { completed: 2, total: 5 };
-  return Response.json(data);
+          <CodeSnippet code={`// A server component by default
+export default async function Page() {
+  const data = await fetch("https://api.example.com/data").then(r => r.json());
+  return <div>{data.message}</div>;
 }`} />
-        </div>
-      ),
-    },
-    {
-      id: "practice",
-      title: "Practice",
-      content: (
-        <div className="gb-hint-box">
-          <div className="gb-hint-icon">✏️</div>
-          <div>
-            <strong>Try it</strong>
-            <p>
-              Pick a component in <code>app/</code> and add a type for its props.
-              Then tighten one prop with a string union (for example,
-              <code> "primary" | "secondary"</code>) and note how the editor now
-              guides your usage.
-            </p>
-          </div>
         </div>
       ),
     },
@@ -105,9 +66,9 @@ const DEFAULT_SECTIONS: ChapterSection[] = [
     title: "What you will learn",
     content: (
       <ul className="gb-list">
-        <li>How the TypeScript compiler understands this concept.</li>
-        <li>Where it shows up in real Next.js components.</li>
-        <li>What to watch for when data comes from an API.</li>
+        <li>How this concept works within Next.js.</li>
+        <li>Where it shows up in real application architecture.</li>
+        <li>How it improves user experience and developer pace.</li>
       </ul>
     ),
   },
@@ -115,17 +76,12 @@ const DEFAULT_SECTIONS: ChapterSection[] = [
     id: "example",
     title: "Example",
     content: (
-      <CodeSnippet code={`type Chapter = {
-  title: string;
-  summary: string;
-};
-
-function ChapterCard({ title, summary }: Chapter) {
+      <CodeSnippet code={`export default function ExamplePage() {
   return (
-    <article>
-      <h4>{title}</h4>
-      <p>{summary}</p>
-    </article>
+    <main>
+      <h1>Next.js Example</h1>
+      <p>This is a standard Server Component in the App Router.</p>
+    </main>
   );
 }`} />
     ),
@@ -139,9 +95,7 @@ function ChapterCard({ title, summary }: Chapter) {
         <div>
           <strong>Practice</strong>
           <p>
-            Take a component in <code>app/</code> and add a prop type that
-            explains which values are optional vs required. Write a short note
-            about how the type improves the component API.
+            Try modifying a component in the <code>app/</code> directory to use Next.js specific features, such as data fetching in Server Components.
           </p>
         </div>
       </div>
@@ -196,7 +150,7 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
           <div className="gb-page-nav">
             {prevChapter ? (
               <Link
-                href={`/typescript/${prevChapter.slug}`}
+                href={`/nextjs/${prevChapter.slug}`}
                 className="gb-page-nav-link gb-page-nav-link--prev"
               >
                 <span className="gb-page-nav-label">Previous</span>
@@ -206,7 +160,7 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
               </Link>
             ) : (
               <Link
-                href="/typescript"
+                href="/nextjs"
                 className="gb-page-nav-link gb-page-nav-link--prev"
               >
                 <span className="gb-page-nav-label">Previous</span>
@@ -215,7 +169,7 @@ export default async function ChapterPage({ params }: ChapterPageProps) {
             )}
             {nextChapter && (
               <Link
-                href={`/typescript/${nextChapter.slug}`}
+                href={`/nextjs/${nextChapter.slug}`}
                 className="gb-page-nav-link gb-page-nav-link--next"
               >
                 <span className="gb-page-nav-label">Next</span>

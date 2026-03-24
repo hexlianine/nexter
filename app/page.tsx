@@ -184,8 +184,8 @@ export default function Page() {
             <Link href="/learn" className="badge badge-link">
               Learning overview →
             </Link>
-            <Link href="/typescript" className="badge badge-link">
-              TypeScript module →
+            <Link href="/nextjs" className="badge badge-link">
+              Next.js module →
             </Link>
             <span className="badge">App Router basics</span>
             <span className="badge">Route groups</span>

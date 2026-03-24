@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { CHAPTERS, LEVEL_LABELS } from "./module-data";
 
-export default function TypeScriptOverviewPage() {
+export default function NextjsOverviewPage() {
   return (
     <>
-      <h1 className="gb-page-title">TypeScript Handbook</h1>
+      <h1 className="gb-page-title">Next.js Handbook</h1>
       <p className="gb-page-desc">
-        A standalone learning module focused on TypeScript fundamentals for
-        modern Next.js projects. Each chapter builds on the last — work through
+        A standalone learning module focused on Next.js fundamentals. Each chapter builds on the last — work through
         them in order or jump directly to a topic.
       </p>
 
@@ -29,7 +28,7 @@ export default function TypeScriptOverviewPage() {
         {CHAPTERS.map((chapter, index) => (
           <Link
             key={chapter.id}
-            href={`/typescript/${chapter.slug}`}
+            href={`/nextjs/${chapter.slug}`}
             className="gb-chapter-item"
           >
             <span className="gb-chapter-number">{index + 1}</span>
@@ -52,8 +51,8 @@ export default function TypeScriptOverviewPage() {
           <strong>Expanding the handbook</strong>
           <p>
             Add a new entry to{" "}
-            <code>app/typescript/module-data.ts</code> and create a matching
-            route under <code>app/typescript/[chapter]</code> — the sidebar
+            <code>app/nextjs/module-data.ts</code> and create a matching
+            route under <code>app/nextjs/[chapter]</code> — the sidebar
             updates automatically.
           </p>
         </div>
@@ -63,7 +62,7 @@ export default function TypeScriptOverviewPage() {
         <span />
         {CHAPTERS.length > 0 && (
           <Link
-            href={`/typescript/${CHAPTERS[0].slug}`}
+            href={`/nextjs/${CHAPTERS[0].slug}`}
             className="gb-page-nav-link gb-page-nav-link--next"
           >
             <span className="gb-page-nav-label">Next</span>

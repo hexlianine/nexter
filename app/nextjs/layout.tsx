@@ -17,13 +17,13 @@ function NavSection({
   chapter: Chapter;
   pathname: string;
 }) {
-  const isParentActive = pathname === `/typescript/${chapter.slug}`;
+  const isParentActive = pathname === `/nextjs/${chapter.slug}`;
   const hasChildren = chapter.children && chapter.children.length > 0;
 
   return (
     <div className="gb-nav-group">
       <Link
-        href={`/typescript/${chapter.slug}`}
+        href={`/nextjs/${chapter.slug}`}
         className={`gb-nav-link${isParentActive ? " gb-nav-link--active" : ""}`}
       >
         {chapter.title}
@@ -31,11 +31,11 @@ function NavSection({
       {hasChildren && (
         <div className="gb-nav-children">
           {chapter.children!.map((child) => {
-            const isActive = pathname === `/typescript/${child.slug}`;
+            const isActive = pathname === `/nextjs/${child.slug}`;
             return (
               <Link
                 key={child.id}
-                href={`/typescript/${child.slug}`}
+                href={`/nextjs/${child.slug}`}
                 className={`gb-nav-link${isActive ? " gb-nav-link--active" : ""}`}
               >
                 {child.title}
@@ -48,7 +48,7 @@ function NavSection({
   );
 }
 
-export default function TypeScriptLayout({
+export default function NextjsLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -58,9 +58,9 @@ export default function TypeScriptLayout({
   return (
     <div className="gb-layout">
       <aside className="gb-sidebar">
-        <Link href="/typescript" className="gb-brand">
-          <span className="gb-brand-icon">TS</span>
-          <span className="gb-brand-label">TypeScript Handbook</span>
+        <Link href="/nextjs" className="gb-brand">
+          <span className="gb-brand-icon">NX</span>
+          <span className="gb-brand-label">Next.js Handbook</span>
         </Link>
 
         <div className="gb-search">
@@ -75,8 +75,8 @@ export default function TypeScriptLayout({
         <nav className="gb-nav">
           <div className="gb-nav-section-label">Getting Started</div>
           <Link
-            href="/typescript"
-            className={`gb-nav-link${pathname === "/typescript" ? " gb-nav-link--active" : ""}`}
+            href="/nextjs"
+            className={`gb-nav-link${pathname === "/nextjs" ? " gb-nav-link--active" : ""}`}
           >
             Introduction
           </Link>
@@ -96,8 +96,8 @@ export default function TypeScriptLayout({
       <div className="gb-main">
         <header className="gb-header">
           <nav className="gb-breadcrumbs">
-            <Link href="/typescript">TypeScript Handbook</Link>
-            {pathname !== "/typescript" && (
+            <Link href="/nextjs">Next.js Handbook</Link>
+            {pathname !== "/nextjs" && (
               <>
                 <span className="gb-breadcrumb-sep">/</span>
                 <span className="gb-breadcrumb-current">
